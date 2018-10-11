@@ -1,0 +1,92 @@
+﻿<Window x:Class="ClimateViewer.Climate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClimateViewer"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="Climate Viewer" Height="600" Width="1000" Loaded="Window_Loaded" Icon="/ClimateViewer;component/Pictures/icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Column="0" Grid.ColumnSpan="10">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit" Name="Menu_exit" Click="Menu_exit_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Column="1" Grid.Row="2" Height="250" VerticalAlignment="Top" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Date" Grid.Row="0" HorizontalContentAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+            <DatePicker Name="dp_datestampfrom" VerticalContentAlignment="Center" Grid.Row="1"></DatePicker>
+            <Label Content="Unit" Grid.Row="3" HorizontalContentAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+            <ComboBox Name="cb_UnitID" Grid.Row="4" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></ComboBox>
+            <Label Content="Data shown in" Grid.Row="6" HorizontalContentAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+            <ComboBox Name="cb_CompressionLVL" Grid.Row="7" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <ComboBoxItem ToolTip="Data is 1 dataset to 1 dataset">1:1</ComboBoxItem>
+                <ComboBoxItem ToolTip="Data is combine 2 dataset to 1 dataset">1:2</ComboBoxItem>
+                <ComboBoxItem ToolTip="Data is combine 4 dataset to 1 dataset">1:4</ComboBoxItem>
+                <ComboBoxItem ToolTip="Data is combine 6 dataset to 1 dataset" >1:6</ComboBoxItem>
+            </ComboBox>
+            <Button Name="btn_showdata" Content="Show Data" Grid.Row="9" Click="btn_Showdata_Click"></Button>
+        
+        </Grid>
+        <Grid  Grid.Column="3" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <lvc:CartesianChart Name="lc_temp" LegendLocation="Top" Grid.Column="0" Grid.Row="0" Series="{Binding TempSeries}">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Temperatur"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis ShowLabels="True" Title="Time" Labels="{Binding TimeLabel}" LabelsRotation="-90">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True" Step="2"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+
+            <lvc:CartesianChart Name="lc_humi" LegendLocation="Top" Grid.Column="0" Grid.Row="1" Series="{Binding HumiSeries}">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Humidity"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis ShowLabels="True"  Title="Time" Labels="{Binding TimeLabel}" LabelsRotation="-90">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True" Step="2"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+        </Grid>
+    </Grid>
+</Window>

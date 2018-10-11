@@ -2,12 +2,10 @@
 using LiveCharts;
 using LiveCharts.Helpers;
 using LiveCharts.Wpf;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ClimateViewer
@@ -15,76 +13,39 @@ namespace ClimateViewer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Climate : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public Climate() { InitializeComponent(); }
 
-        string apikey;
+        List<Userunits> units = new List<Userunits>();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             dp_datestampfrom.SelectedDate = DateTime.Now;
-        }
 
-        private void btn_login_Click(object sender, RoutedEventArgs e)
-        {
-            string JSONapikey = HttpApiRequest.ClimateLogin(tb_Usermail.Text, pb_userpassword.Password);           
-            if (string.IsNullOrEmpty(JSONapikey)) { MessageBox.Show("Wrong username or password"); }
-            else
-            {
-                apikey = JsonDataConverter.deserializedApikey(JSONapikey);
-                btn_userinfo.IsEnabled = true;
-            }
-        }
-
-        List<Userunits> units = new List<Userunits>();
-        private void btn_userinfo_Click(object sender, RoutedEventArgs e)
-        {
-            string JSONunits = HttpApiRequest.Userunits(apikey, tb_Usermail.Text, pb_userpassword.Password);
+            string JSONunits = HttpApiRequest.Userunits(UserInformation.ApiKey, UserInformation.Mail, UserInformation.Password);
             units = JsonDataConverter.deserializedUnits(JSONunits);
+            foreach (var unit in units) { cb_UnitID.Items.Add(unit.name); }
 
-            foreach (var unit in units)
-            {
-                cb_UnitID.Items.Add(unit.name);
-            }
-
-            btn_showdata.IsEnabled = true;
-            dp_datestampfrom.IsEnabled = true;
-            cb_UnitID.IsEnabled = true;
-            cb_CompressionLVL.IsEnabled = true;
+            cb_UnitID.SelectedIndex = 0;
+            cb_CompressionLVL.SelectedIndex = 0;
         }
 
-        private void btn_Showdata_Click(object sender, RoutedEventArgs e)
-        {
-            PopulateCharts();
-        }
+        private void btn_Showdata_Click(object sender, RoutedEventArgs e) { PopulateCharts(); }
 
         private void PopulateCharts()
         {
             DataContext = null;
-
             DateTime date = dp_datestampfrom.SelectedDate.Value;
 
-            string clvl = "1";
+            string clvl = null;
             switch (cb_CompressionLVL.SelectedIndex)
             {
-                case 0:
-                    clvl = "1";
-                    break;
-                case 1:
-                    clvl = "2";
-                    break;
-                case 2:
-                    clvl = "3";
-                    break;
-                case 3:
-                    clvl = "4";
-                    break;
-                default:
-                    break;
+                case 0: clvl = "1"; break;
+                case 1: clvl = "2"; break;
+                case 2: clvl = "3"; break;
+                case 3: clvl = "4"; break;
+                default: break;
             }
 
             string unitID = null;
@@ -92,8 +53,8 @@ namespace ClimateViewer
             {
                 if (unit.name == cb_UnitID.Text) { unitID = unit.id; }
             }
-            
-            string climatestringdata = HttpApiRequest.GetClimateData(apikey, tb_Usermail.Text, unitID, date.ToString("yyyy.MM.dd"), clvl);
+
+            string climatestringdata = HttpApiRequest.GetClimateData(UserInformation.ApiKey, UserInformation.Mail, unitID, date.ToString("yyyy.MM.dd"), clvl);
             List<unitData> ClimateDataList = JsonDataConverter.deserializedClimateData(climatestringdata);
 
             string format = "HH:mm";
@@ -169,5 +130,10 @@ namespace ClimateViewer
         public string[] TimeLabel { get; set; }
         public SeriesCollection TempSeries { get; set; }
         public SeriesCollection HumiSeries { get; set; }
+
+        private void Menu_exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -23,14 +23,11 @@ namespace ClimateViewer.Handlers
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             string Response = "";
-            using (StreamReader sr = new System.IO.StreamReader(response.GetResponseStream()))
-            {
-                Response = sr.ReadToEnd();
-            }
+            using (StreamReader sr = new StreamReader(response.GetResponseStream())) { Response = sr.ReadToEnd(); }
             return Response;
         }
 
-        public static string ClimateLogin( string usermail, string password)
+        public static string ClimateLogin(string usermail, string password)
         {
             ClimateUser cu = new ClimateUser();
             cu.usermailid = usermail;
@@ -55,10 +52,7 @@ namespace ClimateViewer.Handlers
             using (StreamReader sr = new StreamReader(response.GetResponseStream())) { JSONapikey = sr.ReadToEnd(); }
 
             if (JSONapikey == "[]") { return null; }
-            else
-            {
-                return JSONapikey;
-            }
+            else { return JSONapikey; }
         }
 
         public static string Userunits(string apikey, string usermail, string password)
@@ -85,7 +79,6 @@ namespace ClimateViewer.Handlers
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             string Response = "";
             using (StreamReader sr = new StreamReader(response.GetResponseStream())) { Response = sr.ReadToEnd(); }
-
             return Response;
         }
     }
