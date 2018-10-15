@@ -1,4 +1,5 @@
 ﻿using ClimateViewer.Handlers;
+using ClimateViewer.Views;
 using LiveCharts;
 using LiveCharts.Helpers;
 using LiveCharts.Wpf;
@@ -23,12 +24,46 @@ namespace ClimateViewer
         {
             dp_datestampfrom.SelectedDate = DateTime.Now;
 
+            populateUnitBox();
+            cb_CompressionLVL.SelectedIndex = 0;
+        }
+
+        private List<Userunits> GetUnits(bool FilterNull)
+        {
             string JSONunits = HttpApiRequest.Userunits(UserInformation.ApiKey, UserInformation.Mail, UserInformation.Password);
-            units = JsonDataConverter.deserializedUnits(JSONunits);
+            return JsonDataConverter.deserializedUnits(JSONunits, FilterNull);
+        }
+
+        private void populateUnitBox()
+        {
+            units = GetUnits(true);
+            if (cb_UnitID.Items != null) { cb_UnitID.Items.Clear(); }
             foreach (var unit in units) { cb_UnitID.Items.Add(unit.name); }
 
             cb_UnitID.SelectedIndex = 0;
-            cb_CompressionLVL.SelectedIndex = 0;
+        }
+
+        private void Menu_exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Menu_Getapikey_Click(object sender, RoutedEventArgs e)
+        {
+            PrivatAPIkey key = new PrivatAPIkey();
+            key.Show();
+        }
+
+        private void Menu_privatunits_Click(object sender, RoutedEventArgs e)
+        {
+            PrivatUnits punit = new PrivatUnits(GetUnits(false));
+            if (punit.ShowDialog() == true) { populateUnitBox(); }
+        }
+
+        private void Menu_changepass_Click(object sender, RoutedEventArgs e)
+        {
+            NewPassword np = new NewPassword();
+            np.Show();
         }
 
         private void btn_Showdata_Click(object sender, RoutedEventArgs e) { PopulateCharts(); }
@@ -130,10 +165,5 @@ namespace ClimateViewer
         public string[] TimeLabel { get; set; }
         public SeriesCollection TempSeries { get; set; }
         public SeriesCollection HumiSeries { get; set; }
-
-        private void Menu_exit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
     }
 }

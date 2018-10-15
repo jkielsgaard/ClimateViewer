@@ -26,6 +26,11 @@
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Name="Menu_exit" Click="Menu_exit_Click"/>
             </MenuItem>
+            <MenuItem Header="Account">
+                <MenuItem Header="Privat API key" Name="Menu_Getapikey" Click="Menu_Getapikey_Click"/>
+                <MenuItem Header="Privat Units" Name="Menu_privatunits" Click="Menu_privatunits_Click"/>
+                <MenuItem Header="Change password" Name="Menu_changepass" Click="Menu_changepass_Click"/>
+            </MenuItem>
         </Menu>
 
         <Grid Grid.Column="1" Grid.Row="2" Height="250" VerticalAlignment="Top" >
