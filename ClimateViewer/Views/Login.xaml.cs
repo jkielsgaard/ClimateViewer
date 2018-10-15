@@ -5,6 +5,7 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ClimateViewer.Views
@@ -25,18 +26,23 @@ namespace ClimateViewer.Views
             tb_mail.Focus();
         }
 
-        private void btn_login_Click(object sender, RoutedEventArgs e)
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Return) { login(); }
+        }
 
+        private void btn_login_Click(object sender, RoutedEventArgs e) { login(); }
 
-            pb_password.Password = tb_password.Text;
-
+        private void login()
+        {
             if (string.IsNullOrEmpty(tb_mail.Text) || string.IsNullOrEmpty(pb_password.Password) || string.IsNullOrEmpty(tb_mail.Text) && string.IsNullOrEmpty(pb_password.Password))
             {
                 MessageBox.Show("Please fill out username and password");
             }
             else
             {
+                if (tb_password.Visibility == Visibility.Visible) { pb_password.Password = tb_password.Text; }
+
                 string JSONapikey = HttpApiRequest.ClimateLogin(tb_mail.Text, pb_password.Password);
                 if (string.IsNullOrEmpty(JSONapikey)) { MessageBox.Show("Wrong username or password"); }
                 else
