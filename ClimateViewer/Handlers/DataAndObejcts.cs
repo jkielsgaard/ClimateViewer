@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace ClimateViewer.Handlers
 {
-    /// <summary>
     /// To store data between function used in the clientsoftware
-    /// </summary>
+    #region static data information
     public static class UserInformation
     {
         public static string ApiKey { get; set; }
         public static string Mail { get; set; }
         public static string Password { get; set; }
     }
+    #endregion
+    ///
 
-    /// <summary>
-    /// JsonDataConverter.cs objects
-    /// </summary>
+    /// JsonDataConverter.cs 
+    #region objects
     public class unitData
     {
         public int datestamp { get; set; }
@@ -60,4 +60,6 @@ namespace ClimateViewer.Handlers
         public string usermailid { get; set; }
         public string newpassword { get; set; }
     }
+    #endregion
+    ///
 }

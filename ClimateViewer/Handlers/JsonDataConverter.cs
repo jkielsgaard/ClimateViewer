@@ -3,8 +3,17 @@ using System.Collections.Generic;
 
 namespace ClimateViewer.Handlers
 {
+    /// <summary>
+    /// JsonDataConverter.cs is to convert all string data return from webAPI to readable objects for the application
+    /// </summary>
+
     public class JsonDataConverter
     {
+        /// <summary>
+        /// Change JSON string to climatedata obejct list
+        /// </summary>
+        /// <param name="data">climatedata in JSON string</param>
+        /// <returns>List of objects in unitData </returns>
         public static List<unitData> deserializedClimateData(string data)
         {
             List<unitData> ClimateDataList = new List<unitData>();
@@ -25,6 +34,11 @@ namespace ClimateViewer.Handlers
             return ClimateDataList;
         }
 
+        /// <summary>
+        /// Change JSON string to Apikey string
+        /// </summary>
+        /// <param name="data">APIkey in JSON string</param>
+        /// <returns>return APIkey in a string</returns>
         public static string deserializedApikey(string data)
         {
             List<Userapi> key = new List<Userapi>();
@@ -32,6 +46,12 @@ namespace ClimateViewer.Handlers
             return key[0].userapi;
         }
 
+        /// <summary>
+        /// Change JSON string to Userunits obejct list
+        /// </summary>
+        /// <param name="data">Userunits in JSON string</param>
+        /// <param name="FilterNull">If the return should contain units with null names (false)</param>
+        /// <returns>return a list of the units</returns>
         public static List<Userunits> deserializedUnits(string data, bool FilterNull)
         {
             List<Userunits> units = new List<Userunits>();

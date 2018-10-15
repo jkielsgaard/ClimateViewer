@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace ClimateViewer.Handlers
 {
+    /// <summary>
+    /// Simple convert from unix datestamp to datetime
+    /// </summary>
+
     public class UnixStampConvert
     {
-        //public static long DateTimeToUnixTime(DateTime datetime)
-        //{
-        //    DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        //    return (long)(datetime - sTime).TotalSeconds;
-        //}
-
-
+        /// <summary>
+        /// Convert unix datestamp to datetime
+        /// </summary>
+        /// <param name="unixtime">unix datestamp in seconds</param>
+        /// <returns>return datetime value</returns>
         public static DateTime UnixTimeToDateTime(int unixtime)
         {
             DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);

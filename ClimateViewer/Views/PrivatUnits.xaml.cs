@@ -7,6 +7,7 @@ namespace ClimateViewer.Views
 {
     /// <summary>
     /// Interaction logic for Userunits.xaml
+    /// Only function used by event handlers is described because that events should be self-explanatory
     /// </summary>
     public partial class PrivatUnits : Window
     {

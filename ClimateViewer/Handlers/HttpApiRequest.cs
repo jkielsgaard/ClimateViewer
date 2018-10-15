@@ -9,8 +9,21 @@ using System.Threading.Tasks;
 
 namespace ClimateViewer.Handlers
 {
+    /// <summary>
+    /// HttpApiRequest.cs is a handler for all webapi request
+    /// </summary>
+
     public class HttpApiRequest
     {
+        /// <summary>
+        /// Get dataset from unix datestamp and 24h forward
+        /// </summary>
+        /// <param name="apikey">Privat user API key</param>
+        /// <param name="usermail">User login mail</param>
+        /// <param name="unitid">ID on the unit to get dataset from</param>
+        /// <param name="datestamp">unix datestamp ex. if 08-10-2018 00:00:00 is 1538956800 in unix</param>
+        /// <param name="CompressionLVL">How much data should be compressed, 1 dataset from 1 dataset, 1 dataset from 2 dataset and so on op to 4</param>
+        /// <returns>Will return dataset from request in JSON format</returns>
         public static string GetClimateData(string apikey, string usermail, string unitid, string datestamp, string CompressionLVL)
         {
             string dataurl = "https://gab8d2upqj.execute-api.eu-west-1.amazonaws.com/dev/climateapi";
@@ -27,6 +40,12 @@ namespace ClimateViewer.Handlers
             return Response;
         }
 
+        /// <summary>
+        /// Login and get privat APIkey
+        /// </summary>
+        /// <param name="usermail">User login mail</param>
+        /// <param name="password">User login password</param>
+        /// <returns>Will return privat API key in JSON format</returns>
         public static string ClimateLogin(string usermail, string password)
         {
             ClimateUser cu = new ClimateUser();
@@ -55,6 +74,13 @@ namespace ClimateViewer.Handlers
             else { return JSONapikey; }
         }
 
+        /// <summary>
+        /// Change user password
+        /// </summary>
+        /// <param name="apikey">User rivat API key</param>
+        /// <param name="usermail">User login mail</param>
+        /// <param name="newpassword">New user login password</param>
+        /// <returns>will return "Password changed" if successful</returns>
         public static string ChangePassword(string apikey, string usermail, string newpassword)
         {
             ChangePassword cp = new ChangePassword();
@@ -84,6 +110,13 @@ namespace ClimateViewer.Handlers
             else { return JSONapikey; }
         }
 
+        /// <summary>
+        /// Get all users units
+        /// </summary>
+        /// <param name="apikey">User rivat API key</param>
+        /// <param name="usermail">User login mail</param>
+        /// <param name="password">User login password</param>
+        /// <returns>Will return all units information in JSON format</returns>
         public static string Userunits(string apikey, string usermail, string password)
         {
             ClimateUser cu = new ClimateUser();
@@ -111,6 +144,13 @@ namespace ClimateViewer.Handlers
             return Response;
         }
 
+        /// <summary>
+        /// Change units information
+        /// </summary>
+        /// <param name="apikey">User rivat API key</param>
+        /// <param name="usermail">User login mail</param>
+        /// <param name="units">new units information in JSON format</param>
+        /// <returns>Will return "Units updated" if successful</returns>
         public static string Changeunits(string apikey, string usermail, List<Userunits> units)
         {
             string[] unitsarray = new string[units.Count()];

@@ -7,6 +7,11 @@ namespace UnitTest
     [TestClass]
     public class ClimateViewer_tests
     {
+        /// <summary>
+        /// unittests to test all nonweb handlers function in climateviewer and login webapi to ensure connection to cloudsystem
+        /// </summary>
+
+        #region HttpApiRequest.cs
         [TestMethod]
         public void HttpApiRequest_ClimateLogin()
         {
@@ -26,7 +31,9 @@ namespace UnitTest
                 Assert.IsTrue(JSONapikey.Contains(expectedoutput_Access));
             }
         }
+        #endregion
 
+        #region JsonDataConverter.cs      
         [TestMethod]
         public void JsonDataConverter_deserializedClimateData()
         {
@@ -80,7 +87,9 @@ namespace UnitTest
 
             Assert.AreEqual(expectedoutput, key);
         }
+        #endregion
 
+        #region UnixStampConvert
         [TestMethod]
         public void UnixStampConvert_FromDateToUnixTimeStamp()
         {
@@ -91,5 +100,6 @@ namespace UnitTest
 
             Assert.AreEqual(expectedoutput, date);
         }
+        #endregion
     }
 }

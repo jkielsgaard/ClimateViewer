@@ -17,6 +17,7 @@ namespace ClimateViewer.Views
 {
     /// <summary>
     /// Interaction logic for PrivatAPIkey.xaml
+    /// Only function used by event handlers is described because that events should be self-explanatory
     /// </summary>
     public partial class PrivatAPIkey : Window
     {

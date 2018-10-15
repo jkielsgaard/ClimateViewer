@@ -13,6 +13,7 @@ namespace ClimateViewer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
+    /// Only function used by event handlers is described because that events should be self-explanatory
     /// </summary>
     public partial class Climate : Window
     {
@@ -28,12 +29,20 @@ namespace ClimateViewer
             cb_CompressionLVL.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Function used to getunits with and without null in unit names
+        /// </summary>
+        /// <param name="FilterNull">true is no units with null in unit names</param>
+        /// <returns>return a list of the units</returns>
         private List<Userunits> GetUnits(bool FilterNull)
         {
             string JSONunits = HttpApiRequest.Userunits(UserInformation.ApiKey, UserInformation.Mail, UserInformation.Password);
             return JsonDataConverter.deserializedUnits(JSONunits, FilterNull);
         }
 
+        /// <summary>
+        /// To populate the unit combobox is used by Window_Loaded event and Menu_privatunits_Click event
+        /// </summary>
         private void populateUnitBox()
         {
             units = GetUnits(true);
@@ -68,6 +77,9 @@ namespace ClimateViewer
 
         private void btn_Showdata_Click(object sender, RoutedEventArgs e) { PopulateCharts(); }
 
+        /// <summary>
+        /// To poplulate LiveChart in the GUI is only used by btn_Showdata_Click event
+        /// </summary>
         private void PopulateCharts()
         {
             DataContext = null;

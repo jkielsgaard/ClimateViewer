@@ -12,6 +12,7 @@ namespace ClimateViewer.Views
 {
     /// <summary>
     /// Interaction logic for Login.xaml
+    /// Only function used by event handlers is described because that events should be self-explanatory
     /// </summary>
     public partial class Login : Window
     {
@@ -26,13 +27,13 @@ namespace ClimateViewer.Views
             tb_mail.Focus();
         }
 
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return) { login(); }
-        }
+        private void OnKeyDownHandler(object sender, KeyEventArgs e) { if (e.Key == Key.Return) { login(); } }
 
         private void btn_login_Click(object sender, RoutedEventArgs e) { login(); }
 
+        /// <summary>
+        /// Function for login fase used by Enterkey event and Login butten event
+        /// </summary>
         private void login()
         {
             if (string.IsNullOrEmpty(tb_mail.Text) || string.IsNullOrEmpty(pb_password.Password) || string.IsNullOrEmpty(tb_mail.Text) && string.IsNullOrEmpty(pb_password.Password))
@@ -76,6 +77,9 @@ namespace ClimateViewer.Views
 
         private void btn_exit_Click(object sender, RoutedEventArgs e) { Application.Current.Shutdown(); }
 
+        /// <summary>
+        /// AnimatedLogo function is just a little gimmick, it has no value for the application, it just make a neww "logo" in the login screen every time the application is started
+        /// </summary>
         private void AnimatedLogo()
         {
             var TempLineColor = Colors.Red;
