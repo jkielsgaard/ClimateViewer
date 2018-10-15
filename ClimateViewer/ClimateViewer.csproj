@@ -68,9 +68,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Handlers\DataAndObejcts.cs" />
+    <Compile Include="Views\NewPassword.xaml.cs">
+      <DependentUpon>NewPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrivatAPIkey.xaml.cs">
+      <DependentUpon>PrivatAPIkey.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrivatUnits.xaml.cs">
+      <DependentUpon>PrivatUnits.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\NewPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Climate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +100,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrivatAPIkey.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrivatUnits.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
