@@ -48,4 +48,16 @@ namespace ClimateViewer.Handlers
         public string id { get; set; }
         public string name { get; set; }
     }
+
+    public class ChangeUnits
+    {
+        public string usermailid { get; set; }
+        public string[] units { get; set; }
+    }
+
+    public class ChangePassword
+    {
+        public string usermailid { get; set; }
+        public string newpassword { get; set; }
+    }
 }
