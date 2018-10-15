@@ -32,7 +32,7 @@ namespace ClimateViewer.Handlers
             return key[0].userapi;
         }
 
-        public static List<Userunits> deserializedUnits(string data)
+        public static List<Userunits> deserializedUnits(string data, bool FilterNull)
         {
             List<Userunits> units = new List<Userunits>();
             dynamic unitsdata = JsonConvert.DeserializeObject(data);
@@ -42,8 +42,17 @@ namespace ClimateViewer.Handlers
             {
                 string ui = unitsinfo[i];
                 string[] us = ui.Split(',');
-                if (us[1] != "null")
+                if (FilterNull == true)
                 {
+                    if (us[1] != "null")
+                    {
+                        units.Add(new Userunits
+                        {
+                            id = us[0],
+                            name = us[1]
+                        });
+                    }
+                } else {
                     units.Add(new Userunits
                     {
                         id = us[0],
