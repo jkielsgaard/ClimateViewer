@@ -20,6 +20,9 @@ namespace ClimateViewer
         public Climate() { InitializeComponent(); }
 
         List<Userunits> units = new List<Userunits>();
+        public string[] TimeLabel { get; set; }
+        public SeriesCollection TempSeries { get; set; }
+        public SeriesCollection HumiSeries { get; set; }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -29,29 +32,7 @@ namespace ClimateViewer
             cb_CompressionLVL.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Function used to getunits with and without null in unit names
-        /// </summary>
-        /// <param name="FilterNull">true is no units with null in unit names</param>
-        /// <returns>return a list of the units</returns>
-        private List<Userunits> GetUnits(bool FilterNull)
-        {
-            string JSONunits = HttpApiRequest.Userunits(UserInformation.ApiKey, UserInformation.Mail, UserInformation.Password);
-            return JsonDataConverter.deserializedUnits(JSONunits, FilterNull);
-        }
-
-        /// <summary>
-        /// To populate the unit combobox is used by Window_Loaded event and Menu_privatunits_Click event
-        /// </summary>
-        private void populateUnitBox()
-        {
-            units = GetUnits(true);
-            if (cb_UnitID.Items != null) { cb_UnitID.Items.Clear(); }
-            foreach (var unit in units) { cb_UnitID.Items.Add(unit.name); }
-
-            cb_UnitID.SelectedIndex = 0;
-        }
-
+        #region TopMenu
         private void Menu_exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -74,8 +55,24 @@ namespace ClimateViewer
             NewPassword np = new NewPassword();
             np.Show();
         }
+        #endregion
 
+        #region Buttons
         private void btn_Showdata_Click(object sender, RoutedEventArgs e) { PopulateCharts(); }
+        #endregion
+
+        #region Functions
+        /// <summary>
+        /// To populate the unit combobox is used by Window_Loaded event and Menu_privatunits_Click event
+        /// </summary>
+        private void populateUnitBox()
+        {
+            units = GetUnits(true);
+            if (cb_UnitID.Items != null) { cb_UnitID.Items.Clear(); }
+            foreach (var unit in units) { cb_UnitID.Items.Add(unit.name); }
+
+            cb_UnitID.SelectedIndex = 0;
+        }
 
         /// <summary>
         /// To poplulate LiveChart in the GUI is only used by btn_Showdata_Click event
@@ -174,8 +171,16 @@ namespace ClimateViewer
             DataContext = this;
         }
 
-        public string[] TimeLabel { get; set; }
-        public SeriesCollection TempSeries { get; set; }
-        public SeriesCollection HumiSeries { get; set; }
+        /// <summary>
+        /// Function used to getunits with and without null in unit names
+        /// </summary>
+        /// <param name="FilterNull">true is no units with null in unit names</param>
+        /// <returns>return a list of the units</returns>
+        private List<Userunits> GetUnits(bool FilterNull)
+        {
+            string JSONunits = HttpApiRequest.Userunits(UserInformation.ApiKey, UserInformation.Mail, UserInformation.Password);
+            return JsonDataConverter.deserializedUnits(JSONunits, FilterNull);
+        }
+        #endregion
     }
 }

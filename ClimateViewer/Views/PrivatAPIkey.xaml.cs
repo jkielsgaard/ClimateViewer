@@ -21,16 +21,11 @@ namespace ClimateViewer.Views
     /// </summary>
     public partial class PrivatAPIkey : Window
     {
-        public PrivatAPIkey()
-        {
-            InitializeComponent();
-        }
+        public PrivatAPIkey() { InitializeComponent(); }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            lb_apikey.Content = "Privat API key: " + UserInformation.ApiKey;
-        }
+        private void Window_Loaded(object sender, RoutedEventArgs e) { lb_apikey.Content = "Privat API key: " + UserInformation.ApiKey; }
 
+        #region Buttons
         private void btn_copy_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(UserInformation.ApiKey);
@@ -40,7 +35,6 @@ namespace ClimateViewer.Views
         {
             Close();
         }
-
- 
+        #endregion
     }
 }

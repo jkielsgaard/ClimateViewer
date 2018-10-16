@@ -55,6 +55,7 @@ namespace ClimateViewer.Handlers
         public static List<Userunits> deserializedUnits(string data, bool FilterNull)
         {
             List<Userunits> units = new List<Userunits>();
+
             dynamic unitsdata = JsonConvert.DeserializeObject(data);
             dynamic unitsinfo = unitsdata[0].units;
 
@@ -82,8 +83,5 @@ namespace ClimateViewer.Handlers
             }          
             return units;
         }
-    }
-
-
-    
+    } 
 }

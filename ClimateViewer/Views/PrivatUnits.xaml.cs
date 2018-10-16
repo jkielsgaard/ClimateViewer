@@ -19,11 +19,9 @@ namespace ClimateViewer.Views
 
         List<Userunits> units = new List<Userunits>();
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            dg_units.ItemsSource = units;
-        }
+        private void Window_Loaded(object sender, RoutedEventArgs e) { dg_units.ItemsSource = units; }
 
+        #region Buttons
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             HttpApiRequest.Changeunits(UserInformation.ApiKey, UserInformation.Mail, units);
@@ -36,6 +34,6 @@ namespace ClimateViewer.Views
             DialogResult = false;
             Close();
         }
-
+        #endregion
     }
 }

@@ -16,10 +16,7 @@ namespace ClimateViewer.Views
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
-        {
-            InitializeComponent();
-        }
+        public Login() { InitializeComponent(); }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -27,10 +24,33 @@ namespace ClimateViewer.Views
             tb_mail.Focus();
         }
 
+        #region Keypress events
         private void OnKeyDownHandler(object sender, KeyEventArgs e) { if (e.Key == Key.Return) { login(); } }
+        #endregion
 
+        #region Buttons
         private void btn_login_Click(object sender, RoutedEventArgs e) { login(); }
 
+        private void lb_showPassword_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (pb_password.Visibility == Visibility.Visible)
+            {
+                pb_password.Visibility = Visibility.Hidden;
+                tb_password.Visibility = Visibility.Visible;
+                tb_password.Text = pb_password.Password;
+            }
+            else if (pb_password.Visibility == Visibility.Hidden)
+            {
+                pb_password.Visibility = Visibility.Visible;
+                tb_password.Visibility = Visibility.Hidden;
+                pb_password.Password = tb_password.Text;
+            }
+        }
+
+        private void btn_exit_Click(object sender, RoutedEventArgs e) { Application.Current.Shutdown(); }
+        #endregion
+
+        #region Functions
         /// <summary>
         /// Function for login fase used by Enterkey event and Login butten event
         /// </summary>
@@ -58,24 +78,6 @@ namespace ClimateViewer.Views
                 }
             }
         }
-
-        private void lb_showPassword_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (pb_password.Visibility == Visibility.Visible)
-            {
-                pb_password.Visibility = Visibility.Hidden;
-                tb_password.Visibility = Visibility.Visible;
-                tb_password.Text = pb_password.Password;
-            }
-            else if (pb_password.Visibility == Visibility.Hidden)
-            {
-                pb_password.Visibility = Visibility.Visible;
-                tb_password.Visibility = Visibility.Hidden;
-                pb_password.Password = tb_password.Text;
-            }
-        }
-
-        private void btn_exit_Click(object sender, RoutedEventArgs e) { Application.Current.Shutdown(); }
 
         /// <summary>
         /// AnimatedLogo function is just a little gimmick, it has no value for the application, it just make a neww "logo" in the login screen every time the application is started
@@ -129,7 +131,7 @@ namespace ClimateViewer.Views
             lc_Logo01.Series = TempSeries;
             lc_Logo02.Series = HumiSeries;
         }
-
+        #endregion
 
     }
 }

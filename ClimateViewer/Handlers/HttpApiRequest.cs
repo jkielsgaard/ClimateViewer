@@ -79,12 +79,14 @@ namespace ClimateViewer.Handlers
         /// </summary>
         /// <param name="apikey">User rivat API key</param>
         /// <param name="usermail">User login mail</param>
+        /// <param name="userpassword">users login password</param>
         /// <param name="newpassword">New user login password</param>
         /// <returns>will return "Password changed" if successful</returns>
-        public static string ChangePassword(string apikey, string usermail, string newpassword)
+        public static string ChangePassword(string apikey, string usermail, string userpassword, string newpassword)
         {
             ChangePassword cp = new ChangePassword();
             cp.usermailid = usermail;
+            cp.userpassword = userpassword;
             cp.newpassword = newpassword;
 
             string dataurl = "https://gab8d2upqj.execute-api.eu-west-1.amazonaws.com/dev/climateapi";
@@ -128,7 +130,7 @@ namespace ClimateViewer.Handlers
             string body = JsonConvert.SerializeObject(cu);
 
             byte[] bodydata = Encoding.ASCII.GetBytes(body);
-
+            
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(dataurl + urlparams);
             request.Method = "POST";
             request.Headers.Add("x-api-key", apikey);

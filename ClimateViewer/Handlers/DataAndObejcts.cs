@@ -58,6 +58,7 @@ namespace ClimateViewer.Handlers
     public class ChangePassword
     {
         public string usermailid { get; set; }
+        public string userpassword { get; set; }
         public string newpassword { get; set; }
     }
     #endregion

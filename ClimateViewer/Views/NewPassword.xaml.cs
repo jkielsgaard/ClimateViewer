@@ -21,11 +21,9 @@ namespace ClimateViewer.Views
     /// </summary>
     public partial class NewPassword : Window
     {
-        public NewPassword()
-        {
-            InitializeComponent();
-        }
+        public NewPassword() { InitializeComponent(); }
 
+        #region Buttons
         private void btn_change_Click(object sender, RoutedEventArgs e)
         {
             if (tb_newpassword.Visibility == Visibility.Visible) { pb_newpassword.Password = tb_newpassword.Text; }
@@ -36,7 +34,7 @@ namespace ClimateViewer.Views
                 MessageBox.Show("New Password and Comfirm New Password does not match");
             }
             else {
-                HttpApiRequest.ChangePassword(UserInformation.ApiKey, UserInformation.Mail, pb_newpassword.Password);
+                HttpApiRequest.ChangePassword(UserInformation.ApiKey, UserInformation.Mail, UserInformation.Password, pb_newpassword.Password);
                 UserInformation.Password = pb_newpassword.Password;
                 Close();
             }
@@ -77,5 +75,6 @@ namespace ClimateViewer.Views
                 tb_confirmnewpassword.Text = pb_confirmnewpassword.Password;
             }
         }
+        #endregion
     }
 }
