@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClimateViewer"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Climate Viewer" Height="600" Width="1000" Loaded="Window_Loaded" Icon="/ClimateViewer;component/Pictures/icon.ico">
+        Title="Climate Viewer" Height="400" Width="600" Loaded="Window_Loaded" Icon="/ClimateViewer;component/Pictures/icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
